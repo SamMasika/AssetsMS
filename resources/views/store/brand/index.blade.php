@@ -7,7 +7,7 @@
                 <div class="card">
                     <div class="card-header ">
                         <h3>Brand-List
-                            <a href="#" class="btn btn-success float-right"  data-bs-toggle="modal" data-bs-target="#brandModal">
+                            <a href="#" class="btn btn-success btn-sm float-right"  data-bs-toggle="modal" data-bs-target="#brandModal">
                                 <i class="fa fa-plus">Add-Brand</i></a>
                         </h3>
                     </div>
@@ -28,10 +28,22 @@
                                             <td>{{$brand->id}}</td>
                                             <td width="70%">{{$brand->name}}</td>
                                             <td>
-                                                <a href="#"  data-bs-toggle="modal" data-bs-target="#ModalEdit{{$brand->id}}" class="btn btn-warning btn-sm">Edit</a>
-                                                <a href="#"  data-bs-toggle="modal" data-bs-target="#ModalDelete{{$brand->id}}" class="btn btn-danger btn-sm">Delete</a>
-                                                @include('store.brand.delete')
-                                                @include('store.brand.edit')
+                                                <div class="dropdown">
+                                                    <button type="button" class="btn btn-primary btn-sm dropdown-toggle btn-xs" data-bs-toggle="dropdown">
+                                                      Actions
+                                                    </button>
+                                                    <ul class="dropdown-menu ">
+                                                        <li>
+                                                            <div class="btn-group dropdown-item p-0   " style="align-self: center#">
+                                                                <a href="#"  data-bs-toggle="modal" data-bs-target="#ModalEdit{{$brand->id}}"  class="btn btn-warning btn-sm" > <i class="fa fa-pencil text-light" title="Edit"></i></a>
+                                                                <a href="#"  data-bs-toggle="modal" data-bs-target="#ModalDelete{{$brand->id}}"   class="btn btn-danger btn-sm"><i class="fa fa-trash" title="Delete"></i></a>  
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                  </div>
+                                                  @include('store.brand.delete')
+                                                  @include('store.brand.edit')
+                                                  
                                             </td>
                                         </tr>
                                         @endforeach

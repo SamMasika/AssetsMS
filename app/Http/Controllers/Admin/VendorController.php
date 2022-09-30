@@ -15,11 +15,7 @@ class VendorController extends Controller
    
     public function store(Request $request)
     {
-        $vendors=new Vendor;
-        $vendors->name=$request->name;
-        $vendors->email=$request->email;
-        $vendors->phone=$request->phone;
-        $vendors->save();
+        $vendors = Vendor::create($request->all());
 
         return redirect()->back()->with('success','Vendor added successfully!');
 
@@ -27,13 +23,9 @@ class VendorController extends Controller
    
     public function update(Request $request, $id)
     {
-        $vendors=Vendor::find($id);
-        $vendors->name=$request->name;
-        $vendors->email=$request->email;
-        $vendors->phone=$request->phone;
-        $vendors->save(); 
-        
+        $vendors=Vendor::find($id)->update($request->all());
         return redirect()->back()->with('success','Vendor updated successfully!');
+        
     }
 
     public function destroy($id)

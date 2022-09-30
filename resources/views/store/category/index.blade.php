@@ -7,7 +7,7 @@
                 <div class="card">
                     <div class="card-header">
                         <h3>Category-List
-                            <a href="#" class="btn btn-success float-right"  data-bs-toggle="modal" data-bs-target="#productModal">
+                            <a href="#" class="btn btn-success btn-sm float-right"  data-bs-toggle="modal" data-bs-target="#productModal">
                                 <i class="fa fa-plus">Add-Category</i></a>
                         </h3>
                     </div>
@@ -30,16 +30,24 @@
                                             <td>{{$category->name}}</td>
                                             <td>{{$category->desc}}</td>
                                             <td>
-                                                <a href="#"  data-bs-toggle="modal" data-bs-target="#ModalEdit{{$category->id}}" class="btn btn-warning btn-sm">Edit</a>
-                 
-                                                <a href="#"  data-bs-toggle="modal" data-bs-target="#ModalDelete{{$category->id}}" class="btn btn-danger btn-sm">Delete</i></a>
+                                                <div class="dropdown">
+                                                    <button type="button" class="btn btn-primary btn-sm dropdown-toggle btn-xs" data-bs-toggle="dropdown">
+                                                      Actions
+                                                    </button>
+                                                    <ul class="dropdown-menu ">
+                                                        <li>
+                                                            <div class="btn-group dropdown-item p-0   " style="align-self: center#">
+                                                                <a href="#"  data-bs-toggle="modal" data-bs-target="#ModalEdit{{$category->id}}"  class="btn btn-warning btn-sm" > <i class="fa fa-pencil text-light" title="Edit"></i></a>
+                                                                <a href="#"  data-bs-toggle="modal" data-bs-target="#ModalDelete{{$category->id}}"   class="btn btn-danger btn-sm"><i class="fa fa-trash" title="Delete"></i></a>  
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                  </div>
                                                 @include('store.category.delete')
                                                 @include('store.category.edit')
                                             </td>
                                         </tr>
                                         @endforeach
-                                    
-                                      
                                     </tbody>
                                 </table>
                             </div>

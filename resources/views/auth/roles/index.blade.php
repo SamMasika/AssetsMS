@@ -12,6 +12,9 @@
                                 <i class="fa fa-plus">Add-Role</i></a>
                         </h3>
                     </div>
+
+                    <div class="card-body">
+
                         <div class="table-responsive">
                             <table id="bootstrap-data-table-export" class="table table-bordered table-striped">
                                 <thead>
@@ -29,10 +32,21 @@
                                         <td>{{$rol->id}}</td>
                                         <td>{{$rol->name}}</td>
                                         <td>
-                                          <a href="{{url('role-permissions/'.$rol->id)}}" class="btn btn-info btn-sm">View</i></a>
-                                          <a href="{{url('edit-role/'.$rol->id)}}"  class="btn btn-warning btn-sm" >Edit</i></a>
-                                          <a href="#" data-bs-toggle="modal" data-bs-target="#ModalDelete{{$rol->id}}"  class="btn btn-danger btn-sm">Delete</a>
-                                          {{-- <a href="{{url('createassign/'.$rol->id)}}" > <i class="fa fa-tasks" title="Assign Permissions"></i></a> --}}
+                                             <div class="dropdown">
+                                            <button type="button" class="btn btn-primary btn-sm dropdown-toggle btn-xs" data-bs-toggle="dropdown">
+                                              Actions
+                                            </button>
+                                            <ul class="dropdown-menu ">
+                                                <li>
+                                                    <div class="btn-group dropdown-item p-0   " style="align-self: center">
+                                                        <a href="{{url('role-permissions/'.$rol->id)}}"  class="btn btn-info btn-sm"> <i class="fa fa-eye text-light" title="View"></i></a>
+                                                        <a href="{{url('edit-role/'.$rol->id)}}"  class="btn btn-warning btn-sm"> <i class="fa fa-pencil text-light" title="Edit"></i></a>
+                                                        <a href="#"  data-bs-toggle="modal" data-bs-target="#ModalDelete{{$rol->id}}"   class="btn btn-danger btn-sm"><i class="fa fa-trash" title="Delete"></i></a>  
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                          </div> 
+
                                         </td>
                                         @include('auth.roles.delete')
                                     </tr>
@@ -41,6 +55,7 @@
                                 </tbody>
                             </table>
                         </div>
+                    </div>
                 </div>
             </div>
         </div>

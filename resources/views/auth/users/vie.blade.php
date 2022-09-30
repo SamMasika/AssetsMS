@@ -20,11 +20,6 @@
                         <input type="text" id="disabled-input" name="" readonly class="form-control" value="{{$user->name}}"></div>
                 </div>
 
-                <div class="row form-group">
-                    <div class="col col-md-3"><label for="disabled-input" class=" form-control-label">LastName</label></div>
-                    <div class="col-12 col-md-9">
-                        <input type="text" id="disabled-input" name=""readonly class="form-control" value="{{$user->lname}}"></div>
-                </div>
 
                 <div class="row form-group">
                     <div class="col col-md-3"><label for="disabled-input" class=" form-control-label">Email</label></div>

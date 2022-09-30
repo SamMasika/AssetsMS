@@ -6,10 +6,10 @@
             <div class="col">
                 <div class="card">
                     <div class="card-header">
-                        @can('create staff')
-                            
+                        @can('create staff')  
                         <h3>Staff-List
-                            <a href="#" class="btn btn-success float-right" data-bs-toggle="modal"
+                         
+                            <a href="#" class="btn btn-success btn-sm float-right mt-auto" data-bs-toggle="modal"
                                 data-bs-target="#staffModal">
                                 <i class="fa fa-plus">Add-Staff</i></a>
                         </h3>
@@ -17,14 +17,13 @@
                     </div>
                     <div class="table-responsive">
                         <div class="card-body">
-
                             <table id="bootstrap-data-table-export" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>FirstName</th>
-                                        <th>LastName</th>
+                                        <th>FullName</th>
                                         <th>Email</th>
+                                        <th>Department</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -32,21 +31,24 @@
                                     @foreach ($staffs as $staff)
                                         <tr>
                                             <td>{{ $staff->id }}</td>
-                                            <td>{{ $staff->fname }}</td>
-                                            <td>{{ $staff->lname }}</td>
+                                            <td>{{ $staff->name }}</td>
                                             <td>{{ $staff->email }}</td>
+                                            <td>{{ $staff->department->name }}</td>
                                             <td>
-                                                @can('edit staff')   
-                                                <a href="#" data-bs-toggle="modal"
-                                                    data-bs-target="#ModalEdit{{ $staff->id }}" class="btn btn-warning btn-sm">Edit</a>
-                                                @endcan
-
-                                                @can('delete staff')
-                                                    
-                                                <a href="#" data-bs-toggle="modal"
-                                                    data-bs-target="#ModalDelete{{ $staff->id }}" class="btn btn-danger btn-sm">Delete</a>
-                                                @endcan
-                                                        
+                                                <div class="dropdown">
+                                                    <button type="button" class="btn btn-primary btn-sm dropdown-toggle btn-xs" data-bs-toggle="dropdown">
+                                                      Actions
+                                                    </button>
+                                                    <ul class="dropdown-menu ">
+                                                        <li>
+                                                            <div class="btn-group dropdown-item p-0   " style="align-self: center">
+                                                                <a href="{{url('view-staff/'.$staff->id)}}"  class="btn btn-info btn-sm"> <i class="fa fa-eye text-light" title="View"></i></a>
+                                                                <a href="#"  data-bs-toggle="modal" data-bs-target="#ModalEdit{{$staff->id}}"  class="btn btn-warning btn-sm" > <i class="fa fa-pencil text-light" title="Edit"></i></a>
+                                                                <a href="#"  data-bs-toggle="modal" data-bs-target="#ModalDelete{{$staff->id}}"   class="btn btn-danger btn-sm"><i class="fa fa-trash" title="Delete"></i></a>  
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                  </div> 
                                                     </td>
                                                     @include('store.staffs.delete')
                                                     @include('store.staffs.edit')
@@ -61,6 +63,37 @@
         </div>
     </div>
 
+    <div class="modal fade" id="staffAsModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"> Staff Assigned Assets</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                                <table id="bootstrap-data-table-export" class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>FirstName</th>
+                                            <th>LastName</th>
+                                            <th>AssetName</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($stafAs as $staf)
+                                            <tr>
+                                                <td>{{ $staf->staff->fname }}</td>
+                                                <td>{{ $staf->staff->lname }}</td>
+                                                   <td>{{$staf->asset->name}}</td>    
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                         </div>
+                </div>
+        </div>
+ </div>
+   
     <div class="modal fade" id="staffModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -73,15 +106,9 @@
                         class="form-horizontal">
                         @csrf
                         <div class="row form-group">
-                            <div class="col col-md-3"><label for="text-input" class=" form-control-label">FirstName</label></div>
-                            <div class="col-12 col-md-9"><input type="text" id="text-input" name="fname"
-                                    placeholder="FirstName" class="form-control">
-                            </div>
-                        </div>
-                        <div class="row form-group">
-                            <div class="col col-md-3"><label for="text-input" class=" form-control-label">LastName</label></div>
-                            <div class="col-12 col-md-9"><input type="text" id="text-input" name="lname"
-                                    placeholder="LastName" class="form-control">
+                            <div class="col col-md-3"><label for="text-input" class=" form-control-label">Name</label></div>
+                            <div class="col-12 col-md-9"><input type="text" id="text-input" name="name"
+                                    placeholder="Name" class="form-control">
                             </div>
                         </div>
                         <div class="row form-group">
@@ -110,7 +137,19 @@
                                 </select>
                             </div>
                         </div>
-                       
+                        <div class="row form-group">
+                            <div class="col col-md-3"><label class=" form-control-label">Status</label></div>
+                            <div class="col col-md-9">
+                                <div class="form-check">
+                                    <div class="checkbox">
+                                        <label for="checkbox1" class="form-check-label ">
+                                            <input type="checkbox" id="checkbox1" name="status" 
+                                            value="option1" class="form-check-input">Status
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div>
                             <button type="submit" class="btn btn-primary btn-sm float-right">
                                 <i class="fa fa-dot-circle-o"></i> Submit

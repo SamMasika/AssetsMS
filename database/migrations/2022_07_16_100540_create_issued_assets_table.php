@@ -15,9 +15,11 @@ return new class extends Migration
     {
         Schema::create('issued_assets', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('staff_id')->constrained('staffs')->cascadeOnDelete();
+            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->foreignId('assets_id')->constrained('assets')->cascadeOnDelete();
+            $table->foreignId('depart_id')->constrained('departments')->cascadeOnDelete();
             $table->string('status')->default(0);
+            $table->enum('condtn',['new','used','repaired','broken'])->default('new');
             $table->timestamps();
         });
     }

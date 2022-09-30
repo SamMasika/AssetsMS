@@ -12,10 +12,10 @@ class RoleController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('permission:view roleslist|delete-role|edit-role|view-role', ['only' => ['index','show',]]);
-        $this->middleware('permission:create-user', ['only' => ['create','store']]);
-      $this->middleware('permission:edit-user', ['only' => ['edit','update']]);
-       $this->middleware('permission:delete-user', ['only' => ['destroy']]);
+    //     $this->middleware('permission:view roleslist|delete-role|edit-role|view-role', ['only' => ['index','show',]]);
+    //     $this->middleware('permission:create-user', ['only' => ['create','store']]);
+    //   $this->middleware('permission:edit-user', ['only' => ['edit','update']]);
+    //    $this->middleware('permission:delete-user', ['only' => ['destroy']]);
         $this->middleware('auth');
     }
 
@@ -75,8 +75,8 @@ class RoleController extends Controller
             ]);
             $role = Role::find($id);
             $role->name = $request->input('name');
-            $role->save();
             $role->syncPermissions($request->input('permission'));
+            // $role->update();
             return redirect('/roles-list')
             ->with('success','Role updated successfully');
     }

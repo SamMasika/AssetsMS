@@ -1,7 +1,7 @@
 @extends('layouts.back')
 
 @section('content')
-    
+
 <div class="col">
     <div class="card">
         <div class="card-header">
@@ -12,9 +12,15 @@
                 <div class="row form-group">
                     <div class="col col-md-3"><label for="disabled-input" class=" form-control-label">Role</label></div>
                     @foreach ($roles as $role)
+                    @if($role->name==NULL)
                     <div class="col-12 col-md-9">
+                        <input type="text" id="disabled-input" name="" readonly class="form-control" value="None"></div>
+                     </div>
+                     @else
+                     <div class="col-12 col-md-9">
                         <input type="text" id="disabled-input" name="" readonly class="form-control" value="{{$role->name}}"></div>
                      </div>
+                     @endif
                     @endforeach
                 <div class="row form-group">
                     <div class="col col-md-3"><label for="disabled-input" class=" form-control-label">FirsName</label></div>
@@ -22,11 +28,6 @@
                         <input type="text" id="disabled-input" name="" readonly class="form-control" value="{{$users->name}}"></div>
                 </div>
 
-                <div class="row form-group">
-                    <div class="col col-md-3"><label for="disabled-input" class=" form-control-label">LastName</label></div>
-                    <div class="col-12 col-md-9">
-                        <input type="text" id="disabled-input" name=""readonly class="form-control" value="{{$users->lname}}"></div>
-                </div>
 
                 <div class="row form-group">
                     <div class="col col-md-3"><label for="disabled-input" class=" form-control-label">Email</label></div>

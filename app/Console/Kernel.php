@@ -15,6 +15,10 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
+        $schedule->command('depreciate:asset')->everyMinute();
+        // $schedule->call('\App\Http\Controllers\Admin\AssetController@depreciation')->everyMinute()
+        // ->description('Asset has been depreciated successful');
+        
         // $schedule->command('inspire')->hourly();
     }
 
@@ -29,4 +33,9 @@ class Kernel extends ConsoleKernel
 
         require base_path('routes/console.php');
     }
+
+    
+    protected $commands = [
+        'App\Console\Commands\Depreciation'
+    ];
 }

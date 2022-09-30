@@ -6,7 +6,11 @@
         <div class="col">
             <div class="card">
                 <div class="card-header">
-                    <h3>Role's Permissions</h3>
+                    <h3>Role's Permissions
+
+                        <a href="{{url('roles-list')}}" class="btn btn-success float-right" >
+                            <i class="fa fa-arrow-back">Back</i></a>
+                    </h3>
                 </div>
                     <div class="table-responsive">
                         <table id="bootstrap-data-table-export" class="table table-bordered">

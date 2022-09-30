@@ -5,20 +5,26 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
+use Illuminate\Support\Facades\Http;
+use GuzzleHttp\Client;
 class CategoryController extends Controller
 {
   
     public function index()
     {
-        $categories=Category::all();
-        return view('store.category.index',compact('categories'));
+    //     $http =new \GuzzleHttp\Client;
+    //    $data= $http->get("http://localhost:8000/api/auth/category/1");
+    //     $result= json_decode((string)$data->getBody(),true);
+//  return Http::dd()->get("http://localhost:8000/api/auth/category");
+        // return dd($data);
+        // $categories=Category::all();
+        // return view('store.category.index',compact('categories'));
     }
 
   
     public function create()
     {
-        //
+        
     }
 
    

@@ -6,23 +6,36 @@
         <div class="col">
             <div class="card">
                 <div class="card-header"> 
-                    <h4>Assing Role</h4>
+                    <h2>Assing Role</h2>
                 </div>    
                 <div class="card-body">
                     <form action="{{url('userrole/'.$users->id)}}" method="post" enctype="multipart/form-data" class="form-horizontal">
                         @csrf
-                        <div class="mt-2">
-                        <input type="text" class="form-control" name="name" value={{$users->name}} readonly>
-                           </div>
+                     
 
+                           <div>
+                            <div class="row form-group">
+                                <div class="col col-md-3"><label for="text-input"
+                                        class=" form-control-label">Name</label></div>
+                                <div class="col-12 col-md-9"><input type="text" id="text-input" name="name"
+                                  class="form-control" value="{{ $users->name }}" readonly>
+                                </div>
+                            </div>
+                        
                            
-                           <div class="mt-5">        
-                    @foreach($roles as $value)
-                    <label>{{ Form::checkbox('role[]', $value->id, in_array($value->id, $userRole) ? true : false, array('class' => 'name')) }}
-                    {{ $value->name }}</label>
-                    <br/>
-                    @endforeach
-                           </div>
+                           <div class="row form-group py-5">
+                            <div class="col col-md-3"><label for="selectSm" class="">
+                                Role Name</label></div>
+                            <div class="col-12 col-md-9"> 
+                           <select class="js-select2 form-control" name="role[]" id="rolename" multiple="multiple" >
+                               @foreach($roles as $value)
+                               <option <?php if (in_array($value->id,$userRole)) { echo "selected"; } ?> 
+                                value="{{ $value->id }}">{{ $value->name }}</option> 
+                               @endforeach
+                           </select>
+                       </div>
+                     </div>
+                        
                             <div class="mt-3">
                                 <button type="submit" class="btn btn-primary btn-sm float-right">
                                     <i class="fa fa-dot-circle-o"></i> Submit

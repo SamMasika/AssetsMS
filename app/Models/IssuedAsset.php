@@ -13,12 +13,14 @@ class IssuedAsset extends Model
     protected $fillable=[
         'staff_id',
         'assets_id',
+        'status',
+        'condtn',
         
     ];
 
-    public function staff()
+    public function user()
     {
-        return $this->belongsTo(Staff::class,'staff_id','id');
+        return $this->belongsTo(User::class,'user_id','id');
     }
 
     public function asset()

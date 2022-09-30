@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
+use App\Models\Department;
 use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -18,23 +19,21 @@ class UserController extends Controller
 
     {
 
-        $this->middleware('permission:view userslist|delete-user|edit-user|view-user', ['only' => ['index','show',]]);
-         $this->middleware('permission:create-user', ['only' => ['create','store']]);
-       $this->middleware('permission:edit-user', ['only' => ['edit','update']]);
-        $this->middleware('permission:delete-user', ['only' => ['destroy']]);
+    //     $this->middleware('permission:view userslist|delete-user|edit-user|view-user', ['only' => ['index','show',]]);
+    //      $this->middleware('permission:create-user', ['only' => ['create','store']]);
+    //    $this->middleware('permission:edit-user', ['only' => ['edit','update']]);
+    //     $this->middleware('permission:delete-user', ['only' => ['destroy']]);
 
     }
     public function index($id=NULL)
     {
-        // $product = Product::with('projects')->where('user_id', Auth::id())->firstOrFail();
         $users=$id?User::find($id):User::all();
-        
-        // $roles=Role::find($id);
-     $roles = Role::join('model_has_roles','model_has_roles.role_id' , '=', 'roles.id')
-        ->where('model_has_roles.role_id',$id)
-        ->get(['roles.name',]);
+        $departments=Department::all();
+        $roles = Role::crossjoin('model_has_roles','model_has_roles.role_id' , '=', 'roles.id')
+        ->where('model_has_roles.model_id', Auth::id())
+        ->first(['roles.name',]);
         //  return response()->json($roles, 200);
-        return view('auth.users.index',compact('users','roles'));
+        return view('auth.users.index',compact('users','roles','departments'));
     }
 
 
@@ -50,11 +49,10 @@ class UserController extends Controller
     
       $users=new User();
       $users->name=$request->name;
-      $users->lname=$request->lname;
       $users->email=$request->email;
       $users->password=bcrypt($request->password);
       $users->phone=$request->phone;
-    //   $users->role_id=$request->role_id;
+      $users->depart_id=$request->depart_id;
       $users->save();
         return redirect()->back()
             ->with('success',"User created successfully.");
@@ -68,6 +66,7 @@ class UserController extends Controller
         $users->email=$request->email;
         $users->password=bcrypt($request->password);
         $users->phone=$request->phone;
+        $users->depart_id=$request->depart_id;
         $users->update();
         return redirect()->back()
             ->with('success',"User Updated successfully.");
@@ -76,7 +75,7 @@ class UserController extends Controller
     {
         $users=User::find($id);
         $roles = Role::join('model_has_roles','model_has_roles.role_id' , '=', 'roles.id')
-        ->where('model_has_roles.role_id',$id)
+        ->where('model_has_roles.model_id',$id)
         ->get(['roles.name',]);
         return view('auth.users.view',compact('roles','users'));
     }
@@ -93,6 +92,7 @@ class UserController extends Controller
         // return   $userRole;
     }
 
+
      public function assignRole(Request $request,$id)
     {
          $user=User::find($id);
@@ -101,7 +101,6 @@ class UserController extends Controller
             return redirect('/users-list')->with('success', 'Role assigned.');   
     }
 
-   
     public function destroy($id)
     {
         $user=User::find($id);
@@ -111,4 +110,33 @@ class UserController extends Controller
         $user->delete();
 return back()->with('message', 'User deleted.');
     }  
+
+
+    public function changePassword()
+{
+   return view('auth.passwords.change');
+}
+
+public function updatePassword(Request $request)
+{
+        # Validation
+        $request->validate([
+            'old_password' => 'required',
+            'new_password' => 'required|confirmed',
+        ]);
+
+
+        #Match The Old Password
+        if(!Hash::check($request->old_password, auth()->user()->password)){
+            return back()->with("error", "Old Password Doesn't match!");
+        }
+
+
+        #Update the new Password
+        User::whereId(auth()->user()->id)->update([
+            'password' => Hash::make($request->new_password)
+        ]);
+
+        return back()->with("success", "Password changed successfully!");
+}
 }

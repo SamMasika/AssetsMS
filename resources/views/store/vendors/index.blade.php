@@ -7,7 +7,7 @@
                 <div class="card">
                     <div class="card-header">
                         <h3>Vendors-List
-                            <a href="#" class="btn btn-success float-right"  data-bs-toggle="modal" data-bs-target="#brandModal">
+                            <a href="#" class="btn btn-success btn-sm float-right"  data-bs-toggle="modal" data-bs-target="#brandModal">
                                 <i class="fa fa-plus">Add-Vendor</i></a>
                         </h3>
                     </div>
@@ -26,9 +26,16 @@
                                     <tr>
                                         <td>{{$vendor->id}}</td>
                                         <td width="70%">{{$vendor->name}}</td>
-                                        <td>
-                                            <a href="#"  data-bs-toggle="modal" data-bs-target="#ModalEdit{{$vendor->id}}" class="btn btn-warning btn-sm">Edit</a>
-                                            <a href="#"  data-bs-toggle="modal" data-bs-target="#ModalDelete{{$vendor->id}}" class="btn btn-danger btn-sm">Delete</a>
+                                        <td>         
+                                            <div class="dropdown">
+                                                <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-bs-toggle="dropdown">
+                                                  Actions
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                 <li> <a href="#"  data-bs-toggle="modal" data-bs-target="#ModalEdit{{$vendor->id}}" class="badge badge-pill badge-warning">Edit</i></a></li>
+                                                 <li>  <a href="#"  data-bs-toggle="modal" data-bs-target="#ModalDelete{{$vendor->id}}"  class="badge badge-pill badge-danger">Delete</i></a></li>
+                                                </ul>
+                                              </div>   
                                             @include('store.vendors.delete')
                                             @include('store.vendors.edit')
                                         </td>

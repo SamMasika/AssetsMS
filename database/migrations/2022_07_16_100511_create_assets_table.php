@@ -16,16 +16,20 @@ return new class extends Migration
         Schema::create('assets', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
-            $table->foreignId('vendor_id')->constrained('vendors')->cascadeOnDelete();
-            $table->foreignId('staff_id')->constrained('staffs')->cascadeOnDelete();
+            $table->foreignId('user_id')->nullable()->constrained('users')->cascadeOnDelete();
+            $table->foreignId('vendor_id')->nullable()->constrained('vendors')->cascadeOnDelete()->nullable();
             $table->enum('status',['new','used','broken','repaired'])->default('new');
-            $table->string('flug')->default(0);
-            $table->foreignId('brand_id')->constrained('brands')->cascadeOnDelete();
-            $table->foreignId('cate_id')->constrained('categories')->cascadeOnDelete();
+            $table->enum('flug',['0','1','2','3'])->default('0');
+            $table->enum('category',['electronic','furniture','building','vehicles','others'])->nullable();
+            $table->boolean('request_type')->default(0);
             $table->text('barcodes')->nullable();
             $table->string('asset_code')->nullable();
-            $table->string('image')->nullable();
+            $table->string('serial_code')->nullable();
+            $table->string('plate_no')->nullable();
+            $table->string('p_price')->nullable();
+            $table->string('savage')->nullable();
+            $table->string('uta')->nullable();
+            $table->timestamp('purchace_date');
             $table->timestamps();
         });
     }

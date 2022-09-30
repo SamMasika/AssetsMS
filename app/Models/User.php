@@ -2,7 +2,8 @@
 
 namespace App\Models;
 
-use Laravel\Sanctum\HasApiTokens;
+// use Laravel\Sanctum\HasApiTokens;
+use Laravel\Passport\HasApiTokens;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
@@ -23,7 +24,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'lname',
+        'phone',
+        'depart_id',
         'phone',
         
        
@@ -52,4 +54,16 @@ class User extends Authenticatable
     // {
     //     return $this->belongsTo(Role::class,'id');
     // }
+
+    public function asset()
+    {
+        return $this->hasMany(Asset::class);
+    }
+
+    public function department()
+    {
+        return $this->belongsTo(Department::class,'depart_id','id');
+    }
+
+
 }

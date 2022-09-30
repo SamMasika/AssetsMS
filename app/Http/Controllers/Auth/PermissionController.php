@@ -55,6 +55,6 @@ class PermissionController extends Controller
     {
     Permission::find($id)->delete();
     return redirect()->back()
-    ->with('error','Permission deleted successfully');
+    ->with('success','Permission deleted successfully');
     }
 }

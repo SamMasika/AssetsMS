@@ -20,6 +20,7 @@ class Asset extends Model
         'flug',
         'brand_id',
         'cate_id',
+        'depart_id',
         'barcodes',
         'asset_code',
         'quantity',
@@ -29,11 +30,6 @@ class Asset extends Model
     public function user()
     {
         return $this->belongsTo(User::class,'user_id','id');
-    }
-
-    public function staff()
-    {
-        return $this->belongsTo(Staff::class,'staff_id','id');
     }
 
     public function vendor()
@@ -47,6 +43,10 @@ class Asset extends Model
     public function category()
     {
         return $this->belongsTo(Category::class,'cate_id','id');
+    }
+    public function department()
+    {
+        return $this->belongsTo(Department::class,'depart_id','id');
     }
 
 }

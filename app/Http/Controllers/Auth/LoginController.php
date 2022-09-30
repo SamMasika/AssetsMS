@@ -32,14 +32,14 @@ class LoginController extends Controller
 
     protected function authenticated()
     {
-        if (Auth::user()->hasAnyRole(['super-admin','storekeeper'])) //1 = Admin Login
+        if (Auth::user()->hasAnyRole(['super-admin','storekeeper','Maintainance Officer','staff'])) //1 = Admin Login
         {
-            return redirect('dashboard')->with('success','Welcome to your dashboard');
+            return redirect('dashboard')->with('success','Your Logged In!!');
         }
        
-        else{
-            return redirect('login')->with('error','Login first'); 
-        }
+        // else{
+        //     return redirect('login')->with('error','Login first'); 
+        // }
     }
 
     /**

@@ -3328,6 +3328,7 @@ textarea.form-control-lg {
   background-clip: padding-box;
   border: 1px solid rgba(0, 0, 0, 0.15);
   border-radius: 0.25rem;
+  top: 100%;
 }
 .dropdown-menu[data-bs-popper] {
   top: 100%;

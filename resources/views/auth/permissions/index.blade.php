@@ -29,8 +29,20 @@
                       <td>{{ $perm->id }}</td>
                       <td>{{ $perm->name }}</td>
                       <td>
-                        <a href="{{url('edit-permission/'.$perm->id)}}" class="btn btn-warning btn-sm" >Edit</a>
-                        <a href="#" data-bs-toggle="modal" data-bs-target="#ModalDelete{{$perm->id}}" class="btn btn-danger btn-sm" >Delete</a>
+                       
+                        <div class="dropdown">
+                          <button type="button" class="btn btn-primary btn-sm dropdown-toggle btn-xs" data-bs-toggle="dropdown">
+                            Actions
+                          </button>
+                          <ul class="dropdown-menu ">
+                              <li>
+                                  <div class="btn-group dropdown-item p-0   " style="align-self: center">
+                                      <a href="{{url('edit-permission/'.$perm->id)}}"  class="btn btn-warning btn-sm"> <i class="fa fa-eye text-light" title="Edit"></i></a>
+                                      <a href="#"  data-bs-toggle="modal" data-bs-target="#ModalDelete{{$perm->id}}"   class="btn btn-danger btn-sm"><i class="fa fa-trash" title="Delete"></i></a>  
+                                  </div>
+                              </li>
+                          </ul>
+                        </div> 
                         @include('auth.permissions.delete')
                       </td>
                     </tr>
